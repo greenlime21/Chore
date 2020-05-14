@@ -11,7 +11,7 @@ export default {}
 <style>
 .img img {
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   opacity: .2;
   z-index: -1;

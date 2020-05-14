@@ -8,10 +8,10 @@
       </div>
       <ul class="nav-links">
         <li>
-          <router-link to>About</router-link>
+          <router-link to="/about">About</router-link>
         </li>
         <li>
-          <router-link to>Chore</router-link>
+          <router-link to="/chore">Chore</router-link>
         </li>
         <li>
           <router-link to>Shopping</router-link>
@@ -71,17 +71,25 @@ export default {
   font-size: 1.2em;
   letter-spacing: 1px;
 }
+.nav-links:hover {
+  text-decoration-line: underline;
+}
 .burger {
   display: none;
   cursor: pointer;
 }
-
 .burger div {
   width: 30px;
   height: 3px;
   background: var(--point-color);
   margin: 6px 0;
   border-radius: 2px;
+}
+@media screen and (max-width: 768px) {
+  .nav-links {
+    font-size: .7em;
+    width: 50%;
+  }
 }
 @media screen and (max-width: 1024px) {
   .nav-links {

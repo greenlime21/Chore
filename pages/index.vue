@@ -10,12 +10,12 @@
         <div class="email-form">
           <label for="email" >Email :</label>
           <br />
-          <input type="email" id="email" name="email"/>
+          <input type="email" id="email" name="email" v-model="email"/>
         </div>
         <div class="password-form">
           <label for="password">Password :</label>
           <br />
-          <input type="password" id="password" name="password" />
+          <input type="password" id="password" name="password" v-model="password"/>
         </div>
         <div class="feedback">{{ feedback }}</div>
         <button>Login</button>
@@ -25,13 +25,16 @@
 </template>
 
 <script>
+import firebase from '~/plugins/firebase'
 import Navbar from '~/components/Navbar.vue'
 import Img from '~/components/Img.vue'
 
 export default {
   data() {
     return {
-      feedback: ''
+      email: '',
+      password: '',
+      feedback: '',
     }
   },
   components: {
@@ -40,21 +43,22 @@ export default {
   },
   methods: {
     tryLogin() {
-      this.$router.push('/login')
-      // if (this.email && this.password) {
-      //   firebase
-      //     .auth()
-      //     .signInWithEmailAndPassword(this.email, this.password)
-      //     .then(cred => {
-      //       this.$router.push({ path: '/' })
-      //     })
-      //     .catch(err => {
-      //       this.feedback = err.message
-      //     })
-      //   this.feedback = null
-      // } else {
-      //   this.feedback = 'Please fill in both fields'
-      // }
+      if (this.email && this.password) {
+        firebase
+          .auth()
+          .signInWithEmailAndPassword(this.email, this.password)
+          .then(cred => {
+            // ログインしたユーザーの一意のID
+            // $store.dispatch( cred.user.uid)
+            this.$router.push({ path: '/chore'})
+          })
+          .catch(err => {
+            this.feedback = err.message
+          })
+        this.feedback = null
+      } else {
+        this.feedback = 'メールアドレスとパスワードを記入して下さい。'
+      }
     }
   }
 }
@@ -86,6 +90,8 @@ export default {
 }
 .login-form .feedback {
   height: 35px;
+  font-size: .7em;
+  opacity: .7;
 }
 .login-form button {
   border-radius: 30px;

@@ -4,22 +4,27 @@
     <div class="add-todo">
       <form @submit.prevent="add">
         <input type="text" id="add-todo" v-model="title" />
-        <button>+</button>
+        <button title="おてつだいリストに追加します">+</button>
+        <br>
+        <div class="feedback">獲得ポイント：{{ points }}</div>
       </form>
     </div>
     <div class="todos-list">
       <ul v-for="todo in this.$store.state.chore.todos" :key="todo.id">
         <div class="todo">
-          <i class="fas fa-tshirt icon"></i>
+          <i class="fas fa-tshirt image"></i>
           <span class="title" :class="{edit: !todo.mode}" @click="startEdit(todo)">{{ todo.title }}</span>
           <form class="title" :class="{edit: todo.mode}"  @submit.prevent="finishEdit(todo)">
             <input type="text" v-model.trim="editTodo">
           </form>
-          <span  class="point">{{ todo.point }} pt 
-            <i class="fas fa-angle-up" @click='incPoint(todo)'></i>
-            <i class="fas fa-angle-down" @click='decPoint(todo)'></i>
+          <span class="point">{{ todo.point }} pt
+            <div>
+              <i class="fas fa-angle-up" @click='incPoint(todo)' title="もらえるポイントを増やします"></i>
+              <i class="fas fa-angle-down" @click='decPoint(todo)' title="もらえるポイントを減らします"></i>
+            </div>
           </span>
-          <i class="far fa-trash-alt remove" @click="remove(todo.id)"></i>
+          <i class="fas fa-check done" title="このおてつだいができたらクリック！" @click="addPoints(todo.point)"></i>
+          <i class="far fa-trash-alt remove" @click="remove(todo.id)" title="このおてつだいを削除します"></i>
         </div>
       </ul>
     </div>
@@ -38,7 +43,7 @@ export default {
     return {
       title: '',
       editTodo: '',
-      feedback: ''
+      feedback: '',
     }
   },
   methods: {
@@ -69,8 +74,11 @@ export default {
       this.$store.dispatch('chore/incrementPoint', todo)
     },
     decPoint(todo){
-        this.$store.dispatch('chore/decrementPoint', todo)
+      this.$store.dispatch('chore/decrementPoint', todo)
     },
+    addPoints(point){
+      this.$store.dispatch('chore/addPoints', point)
+    }
   },
   created() {
     this.$store.dispatch('chore/init')
@@ -80,7 +88,8 @@ export default {
 
 <style>
 .add-todo {
-  margin: 30px auto;
+  margin: 50px auto 20px auto;
+  padding-bottom: 40px;
   text-align: center;
 }
 .add-todo input {
@@ -94,6 +103,20 @@ export default {
   padding: 5px;
   background: var(--sub-color);
   cursor: pointer;
+  transition: .1s;
+}
+.add-todo .feedback {
+  margin-top: 40px;
+  height: 35px;
+  font-size: 1.4em;
+  opacity: .7;
+  color: red;
+}
+.add-todo button:hover {
+  background: rgb(152, 207, 228);
+}
+.add-todo button:active {
+  background: rgb(123, 190, 216);
 }
 .todos-list {
   margin: 0 15%;
@@ -111,28 +134,30 @@ export default {
   height: 100%;
   display: grid;
   grid-template:
-    '...  icon  icon  icon ...' 1fr
-    '...  icon  icon  icon ...' 1fr
-    '...  icon  icon  icon ...' 1fr
+    '...  image  image  image ...' 1fr
+    '...  image  image  image ...' 1fr
+    '...  image  image  image ...' 1fr
     '...  title title title ...' 1fr
-    'point ...  ... ... remove' 1fr
+    'point point  done ... remove' 1fr
     / 1fr 1fr 1fr 1fr 1fr;
   justify-items: stretch;
   align-items: center;
   background: white;
+  box-shadow:0px 1px 4px -1px silver;
   text-align: center;
-  border-radius: 20px;
+  border-radius: 10px;
   padding: 10px;
+  transition: .2s;
 }
 .todo:hover {
   background: rgb(250, 250, 250);
   box-shadow: 0 0 5px silver;
 }
-.chore .icon {
-  grid-area: icon;
+.chore .image {
+  grid-area: image;
   font-size: 5vw;
-  padding: 5px;
-  color: var(--sub-color);
+  padding: 20px 5px;
+  color: var(--dark-color);
   border-radius: 10px;
   box-shadow: 0 0 10px 5px rgba(250, 250, 250);
 }
@@ -146,20 +171,55 @@ export default {
 }
 .chore .point {
   grid-area: point;
+  justify-self: start;
   font-size: 1em;
+  border-radius:10px;
   background: var(--base-color);
-  border-radius: 30px;
-  padding: 6px 3px;
   opacity: .7;
+}
+.chore .point i {
+  padding: 4px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .1s;
+}
+.chore .done {
+  grid-area: done;
+  padding: 4px;
+  border-radius: 20px;
+  font-size: 1.4em;
+  cursor: pointer;
+  color: rgb(109, 223, 112);
+  transition: .1s;
+}
+.chore .done:hover {
+  background: rgba(109, 223, 112, 0.6);
+  font-size: 1.6em;
+  border: 2px solid rgb(109, 223, 112);
+}
+.chore .done:active {
+  color: white;
+  background: rgb(87, 227, 0);
+  font-size: 1.6em;
+  border: 2px solid rgb(87, 227, 0);
 }
 .chore .remove {
   grid-area: remove;
   padding: 8px;
   font-size: 1.4vw;
   background: var(--base-color);
-  border-radius: 30px;
+  border-radius: 10px;
   cursor: pointer;
   opacity: 0.7;
+  transition: .1s;
+}
+.chore .point i:hover,
+.chore .remove:hover{
+  background: silver;
+}
+.chore .point i:active,
+.chore .remove:active{
+  background: rgb(133, 133, 133);
 }
 .chore .edit {
   display: none;

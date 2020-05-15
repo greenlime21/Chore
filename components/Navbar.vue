@@ -71,9 +71,6 @@ export default {
   font-size: 1.2em;
   letter-spacing: 1px;
 }
-.nav-links:hover {
-  text-decoration-line: underline;
-}
 .burger {
   display: none;
   cursor: pointer;

@@ -3,14 +3,18 @@ import { firestoreAction } from 'vuexfire'
 
 const db = firebase.firestore()
 const todosRef = db.collection('todos')
+const usersRef = db.collection('users')
 
 export const state = () => ({
-  todos: []
+  todos: [],
+  users: [],
 })
 
 export const actions = {
+  // Todosに関して
   init: firestoreAction(({ bindFirestoreRef }) => {
     bindFirestoreRef('todos', todosRef)
+    bindFirestoreRef('users', usersRef)
   }),
   add: firestoreAction((context, title) => {
     if (title.trim()) {
@@ -19,7 +23,7 @@ export const actions = {
         mode: true,
         // created: firebase.firestore.FieldValue.serverTimestamp(),
         // deadline: firebase.firestore.FieldValue.serverTimestamp(),
-        point: 1
+        point: 5
       })
     }
   }),
@@ -46,5 +50,12 @@ export const actions = {
       point: (todo.point - 1)
       })
     }
+  }),
+  // usersに関して
+  addPoints: firestoreAction((context, point) => {
+    const nowPoints = context.state.users[0].points
+    usersRef.doc('chorepoints').update({
+      points: nowPoints + point
+    })
   }),
 }

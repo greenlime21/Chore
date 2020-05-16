@@ -14,10 +14,10 @@
           <router-link to="/chore">Chore</router-link>
         </li>
         <li>
-          <router-link to>Shopping</router-link>
+          <router-link to="/reward">Reward</router-link>
         </li>
         <li>
-          <router-link to="/login">Profile</router-link>
+          <router-link to="/profile">Profile</router-link>
         </li>
       </ul>
       <div class="burger" :class="{ 'burger-active': status }" @click="navSlide()">

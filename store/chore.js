@@ -4,10 +4,12 @@ import { firestoreAction } from 'vuexfire'
 const db = firebase.firestore()
 const todosRef = db.collection('todos')
 const usersRef = db.collection('users')
+const rewardsRef = db.collection('rewards')
 
 export const state = () => ({
   todos: [],
   users: [],
+  rewards: [],
 })
 
 export const actions = {
@@ -15,6 +17,7 @@ export const actions = {
   init: firestoreAction(({ bindFirestoreRef }) => {
     bindFirestoreRef('todos', todosRef)
     bindFirestoreRef('users', usersRef)
+    bindFirestoreRef('rewards', rewardsRef)
   }),
   add: firestoreAction((context, title) => {
     if (title.trim()) {
@@ -57,5 +60,32 @@ export const actions = {
     usersRef.doc('chorepoints').update({
       points: nowPoints + point
     })
+  }),
+  // rewardsに関して
+  addReward: firestoreAction((context, title) => {
+    if (title.trim()) {
+      rewardsRef.add({
+        title: title,
+        mode: true,
+        point: 10
+      })
+    }
+  }),
+  removeReward: firestoreAction((context, id) => {
+    rewardsRef.doc(id).delete()
+  }),
+  incrementRewardPoint: firestoreAction((context, reward) => {
+    if (reward.point < 99) {
+      rewardsRef.doc(reward.id).update({
+      point: (reward.point + 1)
+      })
+    }
+  }),
+  decrementRewardPoint: firestoreAction((context, reward) => {
+    if (reward.point >= 1) {
+      rewardsRef.doc(reward.id).update({
+        point: reward.point - 1
+      })
+    }
   }),
 }

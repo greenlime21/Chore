@@ -6,13 +6,13 @@
         <input type="text" id="add-todo" v-model="title" />
         <button title="おてつだいリストに追加します">+</button>
         <br>
-        <div class="feedback">獲得ポイント：{{ points }}</div>
+        <div class="feedback">獲得ポイント： </div>
       </form>
     </div>
     <div class="todos-list">
       <ul v-for="todo in this.$store.state.chore.todos" :key="todo.id">
         <div class="todo">
-          <i class="fas fa-tshirt image"></i>
+          <img class="image" src="~/assets/chore/img4.png" alt="お手伝いイメージ">
           <span class="title" :class="{edit: !todo.mode}" @click="startEdit(todo)">{{ todo.title }}</span>
           <form class="title" :class="{edit: todo.mode}"  @submit.prevent="finishEdit(todo)">
             <input type="text" v-model.trim="editTodo">
@@ -44,6 +44,7 @@ export default {
       title: '',
       editTodo: '',
       feedback: '',
+      points: '',
     }
   },
   methods: {
@@ -82,7 +83,7 @@ export default {
   },
   created() {
     this.$store.dispatch('chore/init')
-  }
+  },
 }
 </script>
 
@@ -155,8 +156,8 @@ export default {
 }
 .chore .image {
   grid-area: image;
-  font-size: 5vw;
-  padding: 20px 5px;
+  justify-self: center;
+  padding: 3vh 4vw;
   color: var(--dark-color);
   border-radius: 10px;
   box-shadow: 0 0 10px 5px rgba(250, 250, 250);
@@ -199,13 +200,15 @@ export default {
 }
 .chore .done:active {
   color: white;
-  background: rgb(87, 227, 0);
+  background: rgb(109, 223, 112);
   font-size: 1.6em;
-  border: 2px solid rgb(87, 227, 0);
+  border: 2px solid rgb(109, 223, 112);
 }
 .chore .remove {
   grid-area: remove;
-  padding: 8px;
+  justify-self: end;
+  align-self: stretch;
+  padding: 13px 10px;
   font-size: 1.4vw;
   background: var(--base-color);
   border-radius: 10px;

@@ -1,0 +1,7 @@
+prof = [
+  {name: 'kousaku', age: 24, unko: 'red' id:1}
+  {name: 'kishimoto', age: 27, unko: 'blue' id:2}
+]
+
+
+

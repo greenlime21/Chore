@@ -1,30 +1,33 @@
+// お手伝いのイメージ画像がランダムに出るようにする
 <template>
   <div class="chore">
     <Navbar />
+    <div class="explanation">
+      <h3>おてつだいリスト</h3>
+      <p>おてつだいをすると、ポイントがたまるよ！</p>
+    </div>
     <div class="add-todo">
       <form @submit.prevent="add">
         <input type="text" id="add-todo" v-model="title" />
         <button title="おてつだいリストに追加します">+</button>
-        <br>
-        <div class="feedback">獲得ポイント： </div>
       </form>
     </div>
     <div class="todos-list">
       <ul v-for="todo in this.$store.state.chore.todos" :key="todo.id">
         <div class="todo">
-          <img class="image" src="~/assets/chore/img4.png" alt="お手伝いイメージ">
-          <span class="title" :class="{edit: !todo.mode}" @click="startEdit(todo)">{{ todo.title }}</span>
-          <form class="title" :class="{edit: todo.mode}"  @submit.prevent="finishEdit(todo)">
+          <img class="image" :src='imgSrc' alt="お手伝いイメージ">
+          <span class="title" :class="{edit: !todo.mode}" @click="startEdit(todo)"> {{ todo.title }} </span>
+          <form class="title" :class="{edit:  todo.mode}" @submit.prevent="finishEdit(todo)">
             <input type="text" v-model.trim="editTodo">
           </form>
-          <span class="point">{{ todo.point }} pt
+          <span class="point"> {{ todo.point }} pt
             <div>
               <i class="fas fa-angle-up" @click='incPoint(todo)' title="もらえるポイントを増やします"></i>
               <i class="fas fa-angle-down" @click='decPoint(todo)' title="もらえるポイントを減らします"></i>
             </div>
           </span>
           <i class="fas fa-check done" title="このおてつだいができたらクリック！" @click="addPoints(todo.point)"></i>
-          <i class="far fa-trash-alt remove" @click="remove(todo.id)" title="このおてつだいを削除します"></i>
+          <i class="far fa-trash-alt fa-lg remove" @click="remove(todo.id)" title="このおてつだいを削除します"></i>
         </div>
       </ul>
     </div>
@@ -41,10 +44,11 @@ export default {
   },
   data() {
     return {
-      title: '',
+      title   : '',
       editTodo: '',
       feedback: '',
-      points: '',
+      points  : '',
+      imgSrc: `/chore/img${Math.floor(Math.random() * Math.floor(7))}.png`
     }
   },
   methods: {
@@ -56,20 +60,23 @@ export default {
       this.$store.dispatch('chore/remove', id)
     },
     startEdit(todo) {
-      this.editTodo = todo.title
-      this.$store.dispatch('chore/editTitle', todo)
+      if(!this.editTodo){
+        this.editTodo = todo.title
+        this.$store.dispatch('chore/editTitle', todo)
+      }
     },
     finishEdit(todo) {
       if(this.editTodo){
         const newTodo = {
           title: this.editTodo,
           point: todo.point,
-          mode: todo.mode,
-          id: todo.id
+          mode : todo.mode,
+          id   : todo.id
         }
         this.$store.dispatch('chore/editTitle', newTodo)
       }
       // else時の動作入れたい
+      this.editTodo = ""
     },
     incPoint(todo){
       this.$store.dispatch('chore/incrementPoint', todo)
@@ -138,8 +145,8 @@ export default {
     '...  image  image  image ...' 1fr
     '...  image  image  image ...' 1fr
     '...  image  image  image ...' 1fr
-    '...  title title title ...' 1fr
-    'point point  done ... remove' 1fr
+    '...  title  title  title ...' 1fr
+    'point point done   ...   remove' 1fr
     / 1fr 1fr 1fr 1fr 1fr;
   justify-items: stretch;
   align-items: center;
@@ -170,11 +177,20 @@ export default {
   border-radius: 10px;
   opacity: .9;
 }
+.todo input {
+  height: 100%;
+  width: 100%;
+  padding: 2px 10px;
+  line-height: 20px;
+  border-radius: 10px;
+  text-align: center;
+  background: silver;
+}
 .chore .point {
   grid-area: point;
   justify-self: start;
   font-size: 1em;
-  border-radius:10px;
+  border-radius: 10px;
   background: var(--base-color);
   opacity: .7;
 }
@@ -207,9 +223,8 @@ export default {
 .chore .remove {
   grid-area: remove;
   justify-self: end;
-  align-self: stretch;
+  align-self: center;
   padding: 13px 10px;
-  font-size: 1.4vw;
   background: var(--base-color);
   border-radius: 10px;
   cursor: pointer;
@@ -226,14 +241,6 @@ export default {
 }
 .chore .edit {
   display: none;
-}
-.todo input {
-  height: 100%;
-  width: 100%;
-  padding: 2px 10px;
-  line-height: 20px;
-  font-size: 0.9em;
-  background: rgba(0, 0, 0, 0)
 }
 </style>
 

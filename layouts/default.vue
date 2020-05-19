@@ -34,6 +34,12 @@ button, input, select, textarea {
   outline: none;
   border: none;
 }
+.explanation{
+  width: 40vw;
+  margin: 30px auto;
+  text-align: center;
+  color: rgb(80, 80, 80);
+}
 *,
 *:before,
 *:after {

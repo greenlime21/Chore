@@ -55,8 +55,11 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding-left: 60px;
   min-height: 8vh;
   background: var(--sub-color);
+  /* スクロールバーによってNavbarがずれるのを防ぐ */
+  width: calc(100vw - 15px);
 }
 .logo {
   font-size: 1.6em;

@@ -74,6 +74,13 @@ export const actions = {
   removeReward: firestoreAction((context, id) => {
     rewardsRef.doc(id).delete()
   }),
+  editRewardTitle: firestoreAction((context, reward) => {
+    rewardsRef.doc(reward.id).update({
+      title: reward.title
+    }).then(() => {
+      rewardsRef.doc(reward.id).update({ mode: !reward.mode })
+    })
+  }),
   incrementRewardPoint: firestoreAction((context, reward) => {
     if (reward.point < 99) {
       rewardsRef.doc(reward.id).update({

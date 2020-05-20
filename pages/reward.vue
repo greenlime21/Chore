@@ -7,6 +7,7 @@
       <h3>ごほうびリスト</h3>
       <p>おてつだいでポイントがたまったら、ごほうびと交換ができるよ！</p>
     </div>
+    <Result />
     <div class="add-reward">
       <form @submit.prevent="addReward">
         <input type="text" id="add-reward" v-model="title" />
@@ -16,7 +17,7 @@
     <div class="reward-list">
       <ul v-for="reward in this.$store.state.chore.rewards" :key="reward.id">
         <div class="reward-contents">
-          <i class="far fa-star fa-lg"></i>
+          <i class="far fa-star fa-lg" @click="subPoints( reward.point )"></i>
           <span class="reward-title" :class="{edit: !reward.mode}" @click="startEditReward(reward)">{{ reward.title }}</span>
           <form class="reward-title" :class="{edit: reward.mode}" @submit.prevent="finishEditReward(reward)">
             <input type="text" v-model="editReward">
@@ -36,10 +37,12 @@
 <script>
 import firebase from '~/plugins/firebase'
 import Navbar from '~/components/Navbar'
+import Result from '~/components/Result'
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    Result
   },
   data() {
     return {
@@ -80,6 +83,9 @@ export default {
     decrementRewardPoint(reward){
       this.$store.dispatch('chore/decrementRewardPoint', reward)
     },
+    subPoints(point) {
+      this.$store.dispatch('chore/subPoints', point)
+    }
   },
   created() {
     this.$store.dispatch('chore/init')
@@ -132,7 +138,6 @@ export default {
     /1fr  6fr   1fr   1fr 1fr;
   justify-items: start;
   align-items: center;
-  cursor: pointer;
 }
 .reward-list .fa-star {
   grid-area: star;
@@ -140,6 +145,11 @@ export default {
   padding: 10px 6px;
   border-radius: 20px;
   border: solid 2px var(--base-color);
+  cursor: pointer;
+  transition: .3s;
+}
+.reward-list .fa-star:hover {
+  transform: scale(1.2);
 }
 .reward-list .reward-title {
   grid-area: title;
@@ -165,6 +175,7 @@ export default {
   padding: 0 4px;
   background: var(--base-color);
   border-radius: 20px;
+  cursor: pointer;
 }
 .reward-list .fas {
   display: flex;
@@ -179,6 +190,7 @@ export default {
   background: var(--base-color);
   padding: 10px 9px;
   border-radius: 20px;
+  cursor: pointer;
   transition: .1s;
 }
 .reward-list .remove:hover,

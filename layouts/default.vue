@@ -27,6 +27,9 @@ html {
 }
 body {
   background: var(--base-color);
+  color: rgb(80, 80, 80);
+  overflow-y: scroll;
+  width: calc(100vw - 15px);
 }
 button, input, select, textarea {
   font-family : 'Baloo 2', cursive;
@@ -38,7 +41,6 @@ button, input, select, textarea {
   width: 40vw;
   margin: 30px auto;
   text-align: center;
-  color: rgb(80, 80, 80);
 }
 *,
 *:before,

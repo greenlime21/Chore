@@ -24,8 +24,6 @@ export const actions = {
       todosRef.add({
         title: title,
         mode: true,
-        // created: firebase.firestore.FieldValue.serverTimestamp(),
-        // deadline: firebase.firestore.FieldValue.serverTimestamp(),
         point: 5
       })
     }
@@ -60,6 +58,14 @@ export const actions = {
     usersRef.doc('chorepoints').update({
       points: nowPoints + point
     })
+  }),
+  subPoints: firestoreAction((context, point) => {
+    const nowPoints = context.state.users[0].points
+    if(point < nowPoints){
+      usersRef.doc('chorepoints').update({
+        points: nowPoints - point
+      })
+    }
   }),
   // rewardsに関して
   addReward: firestoreAction((context, title) => {

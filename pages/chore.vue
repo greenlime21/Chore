@@ -1,4 +1,6 @@
 // お手伝いのイメージ画像がランダムに出るようにする
+// todoの文字数が多いと見たい目が崩れる
+
 <template>
   <div class="chore">
     <Navbar />
@@ -6,6 +8,7 @@
       <h3>おてつだいリスト</h3>
       <p>おてつだいをすると、ポイントがたまるよ！</p>
     </div>
+    <Result />
     <div class="add-todo">
       <form @submit.prevent="add">
         <input type="text" id="add-todo" v-model="title" />
@@ -37,10 +40,12 @@
 <script>
 import firebase from '~/plugins/firebase'
 import Navbar from '~/components/Navbar'
+import Result from '~/components/Result'
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    Result
   },
   data() {
     return {
@@ -48,7 +53,7 @@ export default {
       editTodo: '',
       feedback: '',
       points  : '',
-      imgSrc: `/chore/img${Math.floor(Math.random() * Math.floor(7))}.png`
+      imgSrc: `/chore/img4.png`
     }
   },
   methods: {

@@ -5,20 +5,26 @@ const db = firebase.firestore()
 const todosRef = db.collection('todos')
 const usersRef = db.collection('users')
 const rewardsRef = db.collection('rewards')
+const choreResultRef = db.collection('chore-result')
+const rewardResultRef = db.collection('reward-result')
 
 export const state = () => ({
   todos: [],
   users: [],
   rewards: [],
+  chore_result: [],
+  reward_result: [],
 })
 
 export const actions = {
-  // Todosに関して
   init: firestoreAction(({ bindFirestoreRef }) => {
     bindFirestoreRef('todos', todosRef)
     bindFirestoreRef('users', usersRef)
     bindFirestoreRef('rewards', rewardsRef)
+    bindFirestoreRef('chore_result', choreResultRef)
+    bindFirestoreRef('reward_result', rewardResultRef)
   }),
+  // Todosに関して
   add: firestoreAction((context, title) => {
     if (title.trim()) {
       todosRef.add({

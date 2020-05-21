@@ -29,6 +29,7 @@ body {
   background: var(--base-color);
   color: rgb(80, 80, 80);
   overflow-y: scroll;
+  overflow-x: hidden;
   width: calc(100vw - 15px);
 }
 button, input, select, textarea {

@@ -5,7 +5,7 @@
     <Navbar />
     <div class="explanation">
       <h3>ごほうびリスト</h3>
-      <p>おてつだいでポイントがたまったら、ごほうびと交換ができるよ！</p>
+      <p>☆を押すとごほうびと交換ができるよ！</p>
     </div>
     <Result />
     <div class="add-reward">
@@ -158,6 +158,7 @@ export default {
 }
 .reward-list .reward-title input {
   background: var(--base-color);
+  width: 20vw;
   border-radius: 5px;
   padding: 2px;
 }

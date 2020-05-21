@@ -29,7 +29,7 @@
               <i class="fas fa-angle-down" @click='decPoint(todo)' title="もらえるポイントを減らします"></i>
             </div>
           </span>
-          <i class="fas fa-check done" title="このおてつだいができたらクリック！" @click="addPoints(todo.point)"></i>
+          <i class="fas fa-check done" title="このおてつだいができたらクリック！" @click="addPoints(todo.point), addChoreResult(todo)"></i>
           <i class="far fa-trash-alt fa-lg remove" @click="remove(todo.id)" title="このおてつだいを削除します"></i>
         </div>
       </ul>
@@ -91,7 +91,17 @@ export default {
     },
     addPoints(point){
       this.$store.dispatch('chore/addPoints', point)
-    }
+    },
+    addChoreResult(todo){
+      const newTodo = {
+        title: todo.title,
+        point: todo.point,
+        mode : todo.mode,
+        id   : todo.id,
+        done : this.$moment().unix()
+      }
+      this.$store.dispatch('chore/addChoreResult', newTodo)
+    },
   },
   created() {
     this.$store.dispatch('chore/init')
@@ -248,13 +258,3 @@ export default {
   display: none;
 }
 </style>
-
-// <i class="fas fa-dog"></i>
-
-// <i class="fas fa-bone"></i>
-
-// <i class="fas fa-toilet"></i>
-
-// <i class="fas fa-tshirt"></i>
-
-// <i class="fas fa-bath"></i>

@@ -107,4 +107,19 @@ export const actions = {
       })
     }
   }),
+  // chore_resultに関して
+  addChoreResult: firestoreAction((context, todo) => {
+    choreResultRef.add({
+      done: todo.done,
+      content: todo.title,
+      point: todo.point
+    })
+  }),
+  addRewardResult: firestoreAction((context, reward) => {
+    rewardResultRef.add({
+      done: reward.done,
+      content: reward.title,
+      point: reward.point
+    })
+  }),
 }

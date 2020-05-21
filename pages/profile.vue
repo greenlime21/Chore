@@ -14,7 +14,7 @@
           <span class="point">ポイント</span>
         </div>
         <ul v-for="(chore_result, index) in this.$store.state.chore.chore_result" :key="index">
-          <span class="done">{{ chore_result.done }}</span>
+          <span class="done">{{ $moment.unix(chore_result.done).format("MM月DD日") }}</span>
           <span class="content">{{ chore_result.content }}</span>
           <span class="point">{{ chore_result.point }} pt</span>
         </ul>
@@ -26,7 +26,7 @@
           <span class="point">ポイント</span>
         </div>
         <ul v-for="(reward_result, index) in this.$store.state.chore.reward_result" :key="index">
-          <span class="done">{{ reward_result.done }}</span>
+          <span class="done">{{ $moment.unix(reward_result.done).format("MM月DD日") }}</span>
           <span class="content">{{ reward_result.content }}</span>
           <span class="point">{{ reward_result.point }} pt</span>
         </ul>
@@ -45,9 +45,6 @@ export default {
   components: {
     Navbar,
     Result,
-  },
-  methods: {
-    
   },
   created() {
     this.$store.dispatch('chore/init')
@@ -68,9 +65,11 @@ export default {
   height: 60vh;
   margin: 10px;
   background: white;
+  overflow-y: scroll;
 }
 .profile .result-header {
   background: var(--sub-color);
+  border-bottom: solid 1px silver !important;
 }
 .profile .chore-result ul,
 .profile .reward-result ul {

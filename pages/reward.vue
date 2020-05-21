@@ -17,7 +17,7 @@
     <div class="reward-list">
       <ul v-for="reward in this.$store.state.chore.rewards" :key="reward.id">
         <div class="reward-contents">
-          <i class="far fa-star fa-lg" @click="subPoints( reward.point )"></i>
+          <i class="far fa-star fa-lg" @click="subPoints( reward.point ), addRewardResult(reward)"></i>
           <span class="reward-title" :class="{edit: !reward.mode}" @click="startEditReward(reward)">{{ reward.title }}</span>
           <form class="reward-title" :class="{edit: reward.mode}" @submit.prevent="finishEditReward(reward)">
             <input type="text" v-model="editReward">
@@ -85,7 +85,17 @@ export default {
     },
     subPoints(point) {
       this.$store.dispatch('chore/subPoints', point)
-    }
+    },
+    addRewardResult(reward){
+      const newReward = {
+        title: reward.title,
+        point: reward.point,
+        mode : reward.mode,
+        id   : reward.id,
+        done : this.$moment().unix()
+      }
+      this.$store.dispatch('chore/addRewardResult', newReward)
+    },
   },
   created() {
     this.$store.dispatch('chore/init')

@@ -38,6 +38,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    ['@nuxtjs/moment', ['ja']]
   ],
   /*
   ** Build configuration

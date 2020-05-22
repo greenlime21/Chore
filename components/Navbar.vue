@@ -58,8 +58,6 @@ export default {
   padding-left: 60px;
   min-height: 8vh;
   background: var(--sub-color);
-  /* スクロールバーによってNavbarがずれるのを防ぐ */
-  width: calc(100vw - 15px);
 }
 .logo {
   font-size: 1.6em;
@@ -73,6 +71,10 @@ export default {
   list-style: none;
   font-size: 1.2em;
   letter-spacing: 1px;
+}
+.nav-links .nuxt-link-active {
+  font-weight: bold;
+  font-size: 1.1em;
 }
 .burger {
   display: none;

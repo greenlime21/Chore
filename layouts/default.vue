@@ -30,7 +30,7 @@ body {
   color: rgb(80, 80, 80);
   overflow-y: scroll;
   overflow-x: hidden;
-  width: calc(100vw - 15px);
+  width: calc(100vw - 10px);
 }
 button, input, select, textarea {
   font-family : 'Baloo 2', cursive;
@@ -42,6 +42,20 @@ button, input, select, textarea {
   width: 40vw;
   margin: 30px auto;
   text-align: center;
+}
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: inset 0 0 2px #777; 
+}
+::-webkit-scrollbar-thumb{
+  background: #ccc;
+  border-radius: 10px;
+  box-shadow: none;
 }
 *,
 *:before,

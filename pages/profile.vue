@@ -64,6 +64,7 @@ export default {
   width: 35vw;
   height: 60vh;
   margin: 10px;
+  border-radius: 10px;
   background: white;
   overflow-y: scroll;
 }

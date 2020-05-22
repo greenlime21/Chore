@@ -32,8 +32,8 @@ import Img from '~/components/Img.vue'
 export default {
   data() {
     return {
-      email: '',
-      password: '',
+      email: 'chore@chore.com',
+      password: 'chorechore',
       feedback: '',
     }
   },
@@ -48,8 +48,6 @@ export default {
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then(cred => {
-            // ログインしたユーザーの一意のID
-            // $store.dispatch( cred.user.uid)
             this.$router.push({ path: '/chore'})
           })
           .catch(err => {
@@ -82,11 +80,11 @@ export default {
   border-radius: 30px;
   line-height: 20px;
   padding: 10px;
+  transition: .1s;
 }
 .email-form input:hover,
-.password-form input:hover,
-.login-form button:hover {
-    box-shadow: 0px 0px 0px 25px rgba(0, 0, 0, .05) inset;
+.password-form input:hover{
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .2);
 }
 .login-form .feedback {
   height: 35px;
@@ -99,5 +97,12 @@ export default {
   padding: 5px;
   background: var(--sub-color);
   cursor: pointer;
+  transition: .1s;
+}
+.login-form button:hover {
+  box-shadow: 0 0 0 25px rgba(0, 0, 0, .05) inset;
+}
+.login-form button:active {
+  box-shadow: 0 0 0 25px rgba(0, 0, 0, .2) inset;
 }
 </style>

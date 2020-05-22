@@ -113,6 +113,11 @@ export default {
   border-radius: 30px;
   line-height: 20px;
   padding: 10px 15px;
+  transition: .1s;
+}
+.add-reward input:hover,
+.add-reward input:focus {
+  box-shadow: 0 0 1px 1px lightgray;
 }
 .add-reward button {
   border-radius: 30px;
@@ -164,7 +169,7 @@ export default {
 .reward-list .reward-title {
   grid-area: title;
   font-size: 1.2em;
-  cursor: text;
+  cursor: pointer;
 }
 .reward-list .reward-title input {
   background: var(--base-color);

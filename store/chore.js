@@ -21,8 +21,8 @@ export const actions = {
     bindFirestoreRef('todos', todosRef)
     bindFirestoreRef('users', usersRef)
     bindFirestoreRef('rewards', rewardsRef)
-    bindFirestoreRef('chore_result', choreResultRef)
-    bindFirestoreRef('reward_result', rewardResultRef)
+    bindFirestoreRef('chore_result', choreResultRef.orderBy("done", "desc"))
+    bindFirestoreRef('reward_result', rewardResultRef.orderBy("done", "desc"))
   }),
   // Todosに関して
   add: firestoreAction((context, title) => {

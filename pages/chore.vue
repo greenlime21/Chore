@@ -21,7 +21,7 @@
           <img class="image" :src='imgSrc' alt="お手伝いイメージ">
           <span class="title" :class="{edit: !todo.mode}" @click="startEdit(todo)"> {{ todo.title }} </span>
           <form class="title" :class="{edit:  todo.mode}" @submit.prevent="finishEdit(todo)">
-            <input type="text" v-model.trim="editTodo">
+            <input type="text" v-model.trim="editTodo" >
           </form>
           <span class="point"> {{ todo.point }} pt
             <div>
@@ -119,6 +119,11 @@ export default {
   border-radius: 30px;
   line-height: 20px;
   padding: 10px 15px;
+  transition: .1s;
+}
+.add-todo input:hover,
+.add-todo input:focus {
+  box-shadow: 0 0 1px 1px lightgray;
 }
 .add-todo button {
   border-radius: 30px;
@@ -179,18 +184,22 @@ export default {
 .chore .image {
   grid-area: image;
   justify-self: center;
-  padding: 3vh 4vw;
+  padding: 4vh 4vw;
   color: var(--dark-color);
   border-radius: 10px;
-  box-shadow: 0 0 10px 5px rgba(250, 250, 250);
+  box-shadow: 0 0 4px 0px silver;
 }
 .chore .title {
   grid-area: title;
+  align-self: start;
   cursor: text;
   font-size: 1.2em;
-  background: var(--base-color);
   border-radius: 10px;
   opacity: .9;
+  transition: .1s;
+}
+.chore .title:hover{
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .2);
 }
 .todo input {
   height: 100%;
@@ -199,7 +208,8 @@ export default {
   line-height: 20px;
   border-radius: 10px;
   text-align: center;
-  background: silver;
+  background: var(--base-color);
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .2);
 }
 .chore .point {
   grid-area: point;

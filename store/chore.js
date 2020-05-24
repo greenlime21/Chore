@@ -18,8 +18,8 @@ export const state = () => ({
 
 export const actions = {
   init: firestoreAction(({ bindFirestoreRef }) => {
-    bindFirestoreRef('todos', todosRef)
     bindFirestoreRef('users', usersRef)
+    bindFirestoreRef('todos', todosRef)
     bindFirestoreRef('rewards', rewardsRef)
     bindFirestoreRef('chore_result', choreResultRef.orderBy("done", "desc"))
     bindFirestoreRef('reward_result', rewardResultRef.orderBy("done", "desc"))
@@ -30,7 +30,8 @@ export const actions = {
       todosRef.add({
         title: title,
         mode: true,
-        point: 5
+        point: 5,
+        imgSrc: `/chore/img${Math.floor( Math.random () * 12) + 1}.png`,
       })
     }
   }),
@@ -41,7 +42,7 @@ export const actions = {
     todosRef.doc(todo.id).update({
       title: todo.title
     }).then(() => {
-      todosRef.doc(todo.id).update({ mode: !todo.mode })
+      context.commit('isTodosModeChange', todo)
     })
   }),
   incrementPoint: firestoreAction((context, todo) => {
@@ -55,6 +56,19 @@ export const actions = {
     if (todo.point >= 1) {
       todosRef.doc(todo.id).update({
       point: (todo.point - 1)
+      })
+    }
+  }),
+  changeImgSrc: firestoreAction((context, todo) => {
+    const image_src_num = Number(todo.imgSrc.replace(/[^0-9]/g, ''))
+
+    if(image_src_num === 12) {
+      todosRef.doc(todo.id).update({
+      imgSrc: `/chore/img1.png`
+      })
+    }else{
+      todosRef.doc(todo.id).update({
+        imgSrc: `/chore/img${image_src_num + 1}.png`
       })
     }
   }),
@@ -90,7 +104,7 @@ export const actions = {
     rewardsRef.doc(reward.id).update({
       title: reward.title
     }).then(() => {
-      rewardsRef.doc(reward.id).update({ mode: !reward.mode })
+      context.commit('isRewardsModeChange', reward)
     })
   }),
   incrementRewardPoint: firestoreAction((context, reward) => {
@@ -122,4 +136,21 @@ export const actions = {
       point: reward.point
     })
   }),
+}
+
+export const mutations = {
+  isTodosModeChange(context, todo) {
+    context.todos.forEach(context_todo => {
+      if(context_todo.id === todo.id){
+        context_todo.mode = !context_todo.mode
+      }
+    })
+  },
+  isRewardsModeChange(context, reward) {
+    context.rewards.forEach(context_reward => {
+      if(context_reward.id === reward.id){
+        context_reward.mode = !context_reward.mode
+      }
+    })
+  }
 }

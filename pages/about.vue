@@ -20,13 +20,22 @@
 </template>
 
 <script>
+import firebase from '~/plugins/firebase'
 import Navbar from '~/components/Navbar'
 
 export default {
   components:{
     Navbar
   },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.$router.push({ path: '/'})
+      } else {
 
+      }
+    });
+  }
 }
 </script>
 
@@ -44,4 +53,17 @@ export default {
 .about p {
   margin: 15px;
 } 
+@media screen and (max-width: 1024px) {
+  .about {
+    width: 65vw;
+  }
+}
+@media screen and (max-width: 767px) {
+  .about {
+    width: 95vw;
+    padding: 3px;
+    margin: 20px auto;
+    letter-spacing: normal;
+  }
+}
 </style>

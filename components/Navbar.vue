@@ -79,7 +79,6 @@ export default {
   list-style: none;
   font-size: 1.2em;
   letter-spacing: 1px;
-  transition: .2s;
 }
 .nav-links .nuxt-link-active {
   font-weight: bold;
@@ -96,6 +95,14 @@ export default {
   margin: 6px 0;
   border-radius: 2px;
   transition: .2s;
+}
+@keyframes fadein{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }
 @media screen and (max-width: 1024px) {
   .nav-links {
@@ -114,6 +121,7 @@ export default {
     flex-direction: column;
     align-items: center;
     transform: translateX(100%);
+    display: none;
   }
   .burger {
     display: block;
@@ -121,8 +129,9 @@ export default {
 }
 .burger-active {
   transform: translateX(0%);
+  display: inherit;
+  animation: fadein .2s linear 0s;
 }
-
 .toggle .line1 {
   transform: rotate(-45deg) translate(-5px, 6px);
 }

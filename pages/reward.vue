@@ -4,7 +4,7 @@
   <div class="reward">
     <Navbar />
     <div class="explanation">
-      <h3>ごほうびリスト</h3>
+      <h3>{{ email }}さん</h3>
       <p>☆を押すとごほうびと交換ができるよ！</p>
     </div>
     <Result />
@@ -47,7 +47,8 @@ export default {
   data() {
     return {
       title: '',
-      editReward: ''
+      editReward: '',
+      email: '',
     }
   },
   methods: {
@@ -99,6 +100,14 @@ export default {
   },
   created() {
     this.$store.dispatch('chore/init')
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.$router.push({ path: '/'})
+      } else {
+        this.email = user.email  
+      }
+    });
   },
 }
 </script>
@@ -216,5 +225,15 @@ export default {
 .reward-list .remove:active,
 .reward-list .fas:active {
   background: rgb(133, 133, 133);
+}
+@media screen and (max-width: 1200px) {
+  .reward-list .reward-contents {
+    width: 70vw;
+  }
+}
+@media screen and (max-width: 767px) {
+  .reward-list .reward-contents {
+    width: 98vw;
+  }
 }
 </style>

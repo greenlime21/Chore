@@ -39,7 +39,7 @@ button, input, select, textarea {
   border: none;
 }
 .explanation{
-  width: 40vw;
+  width: 60vw;
   margin: 30px auto;
   text-align: center;
 }
@@ -56,6 +56,16 @@ button, input, select, textarea {
   background: #ccc;
   border-radius: 10px;
   box-shadow: none;
+}
+@media screen and (max-width: 1024px) {
+  body {
+    width: 100vw;
+  }
+}
+@media screen and (max-width: 767px) {
+  body {
+    width: 100vw;
+  }
 }
 *,
 *:before,

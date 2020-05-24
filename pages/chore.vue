@@ -1,12 +1,11 @@
-// お手伝いのイメージ画像がランダムに出るようにする
 // todoの文字数が多いと見たい目が崩れる
 
 <template>
   <div class="chore">
     <Navbar />
     <div class="explanation">
-      <h3>おてつだいリスト</h3>
-      <p>おてつだいをすると、ポイントがたまるよ！</p>
+      <h3>{{ email }}さん</h3>
+      <p>おてつだいをして、ポイントをためよう！</p>
     </div>
     <Result />
     <div class="add-todo">
@@ -18,7 +17,7 @@
     <div class="todos-list">
       <ul v-for="todo in this.$store.state.chore.todos" :key="todo.id">
         <div class="todo">
-          <img class="image" :src='imgSrc' alt="お手伝いイメージ">
+          <img class="image" :src='todo.imgSrc' alt="お手伝いイメージ" @click="changeImgSrc(todo)" title="クリックするとアイコンを変更できます">
           <span class="title" :class="{edit: !todo.mode}" @click="startEdit(todo)"> {{ todo.title }} </span>
           <form class="title" :class="{edit:  todo.mode}" @submit.prevent="finishEdit(todo)">
             <input type="text" v-model.trim="editTodo" >
@@ -53,7 +52,7 @@ export default {
       editTodo: '',
       feedback: '',
       points  : '',
-      imgSrc: `/chore/img4.png`
+      email: ''
     }
   },
   methods: {
@@ -80,7 +79,6 @@ export default {
         }
         this.$store.dispatch('chore/editTitle', newTodo)
       }
-      // else時の動作入れたい
       this.editTodo = ""
     },
     incPoint(todo){
@@ -102,9 +100,20 @@ export default {
       }
       this.$store.dispatch('chore/addChoreResult', newTodo)
     },
+    changeImgSrc(todo){
+      this.$store.dispatch('chore/changeImgSrc', todo)
+    }
   },
   created() {
     this.$store.dispatch('chore/init')
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.$router.push({ path: '/'})
+      } else {
+        this.email = user.email  
+      }
+    });
   },
 }
 </script>
@@ -165,7 +174,7 @@ export default {
     '...  image  image  image ...' 1fr
     '...  image  image  image ...' 1fr
     '...  image  image  image ...' 1fr
-    '...  title  title  title ...' 1fr
+    'title  title  title  title title' 1fr
     'point point done   ...   remove' 1fr
     / 1fr 1fr 1fr 1fr 1fr;
   justify-items: stretch;
@@ -184,7 +193,7 @@ export default {
 .chore .image {
   grid-area: image;
   justify-self: center;
-  padding: 4vh 4vw;
+  padding: 1vh 2vw;
   color: var(--dark-color);
   border-radius: 10px;
   box-shadow: 0 0 4px 0px silver;
@@ -266,5 +275,23 @@ export default {
 }
 .chore .edit {
   display: none;
+}
+@media screen and (max-width: 1024px) {
+  .todos-list {
+    margin: 0 5%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .todos-list {
+    margin: 0 10%;
+    min-height: 80vh;
+    display: grid;
+    grid-template:
+    'todo' 1fr
+    'todo' 1fr
+    'todo' 1fr
+    / 1fr ;
+  gap: 20px;
+  }
 }
 </style>

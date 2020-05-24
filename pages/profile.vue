@@ -2,7 +2,7 @@
   <div class="profile">
     <Navbar />
     <div class="explanation">
-      <h3>リザルト</h3>
+      <h3>{{ email }}さん</h3>
       <p>自分のポイントやおてつだいの履歴がみられるよ！</p>
     </div>
     <Result />
@@ -46,8 +46,21 @@ export default {
     Navbar,
     Result,
   },
+  data() {
+    return {
+      email: ''
+    }
+  },
   created() {
     this.$store.dispatch('chore/init')
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.$router.push({ path: '/'})
+      } else {
+        this.email = user.email  
+      }
+    });
   },
 }
 </script>
@@ -99,5 +112,33 @@ export default {
 .chore-result .point, 
 .reward-result .point{
   grid-area: point;
+}
+@media screen and (max-width: 1024px) {
+  .profile .users-result {
+    width: 70vw;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .profile .chore-result,
+  .profile .reward-result {
+  width: 70vw;
+  height: 35vh;
+  margin-bottom: 40px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .profile .users-result {
+    width: 98vw;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .profile .chore-result,
+  .profile .reward-result {
+  width: 98vw;
+  height: 30vh;
+  margin-bottom: 40px;
+  }
 }
 </style>

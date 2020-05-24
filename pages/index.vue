@@ -18,7 +18,7 @@
           <input type="password" id="password" name="password" v-model="password"/>
         </div>
         <div class="feedback">{{ feedback }}</div>
-        <button>Login</button>
+        <button :class="{ success : login_success}">{{ button_title }}</button>
       </form>
     </div>
   </div>
@@ -34,6 +34,8 @@ export default {
     return {
       email: 'chore@chore.com',
       password: 'chorechore',
+      button_title:  'Login',
+      login_success: false,
       feedback: '',
     }
   },
@@ -44,14 +46,18 @@ export default {
   methods: {
     tryLogin() {
       if (this.email && this.password) {
+        this.button_title = 'Please wait...'
         firebase
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)
           .then(cred => {
+            this.button_title = 'Success'
+            this.login_success = true
             this.$router.push({ path: '/chore'})
           })
           .catch(err => {
             this.feedback = err.message
+            this.button_title = 'Login'
           })
         this.feedback = null
       } else {
@@ -104,5 +110,8 @@ export default {
 }
 .login-form button:active {
   box-shadow: 0 0 0 25px rgba(0, 0, 0, .2) inset;
+}
+.success {
+  background: rgb(0, 255, 8) !important;
 }
 </style>

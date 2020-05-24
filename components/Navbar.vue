@@ -3,10 +3,10 @@
     <nav>
       <div class="logo">
         <router-link to="/">
-          <h1>Chore!</h1>
+          <h1 @click="signOut">Chore!</h1>
         </router-link>
       </div>
-      <ul class="nav-links">
+      <ul class="nav-links" :class="{ 'burger-active': status }">
         <li>
           <router-link to="/about">About</router-link>
         </li>
@@ -20,7 +20,7 @@
           <router-link to="/profile">Profile</router-link>
         </li>
       </ul>
-      <div class="burger" :class="{ 'burger-active': status }" @click="navSlide()">
+      <div class="burger" :class="{ 'toggle': status }" @click="navSlide()">
         <div class="line1"></div>
         <div class="line2"></div>
         <div class="line3"></div>
@@ -31,6 +31,8 @@
 
 
 <script>
+import firebase from '~/plugins/firebase'
+
 export default {
   data() {
     return {
@@ -41,6 +43,9 @@ export default {
     navSlide() {
       this.status = !this.status
       console.log(this.status)
+    },
+    signOut() {
+      firebase.auth().signOut()
     }
   }
 }
@@ -63,6 +68,9 @@ export default {
   font-size: 1.6em;
   letter-spacing: 5px;
 }
+.logo:hover{
+  opacity: .7;
+}
 .nav-links {
   display: flex;
   width: 40%;
@@ -71,6 +79,7 @@ export default {
   list-style: none;
   font-size: 1.2em;
   letter-spacing: 1px;
+  transition: .2s;
 }
 .nav-links .nuxt-link-active {
   font-weight: bold;
@@ -82,23 +91,18 @@ export default {
 }
 .burger div {
   width: 30px;
-  height: 3px;
+  height: 2px;
   background: var(--point-color);
   margin: 6px 0;
   border-radius: 2px;
-}
-@media screen and (max-width: 768px) {
-  .nav-links {
-    font-size: .7em;
-    width: 50%;
-  }
+  transition: .2s;
 }
 @media screen and (max-width: 1024px) {
   .nav-links {
-    width: 50%;
+    width: 60%;
   }
 }
-/* @media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
   .nav-links {
     position: absolute;
     right: 0px;
@@ -114,11 +118,18 @@ export default {
   .burger {
     display: block;
   }
-  .navbar li {
-    opacity: 0;
-  }
 }
 .burger-active {
   transform: translateX(0%);
-} */
+}
+
+.toggle .line1 {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+.toggle .line2 {
+  opacity: 0;
+}
+.toggle .line3 {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
 </style>

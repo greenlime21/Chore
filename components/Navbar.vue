@@ -29,7 +29,6 @@
   </div>
 </template>
 
-
 <script>
 import firebase from '~/plugins/firebase'
 
@@ -51,94 +50,98 @@ export default {
 }
 </script>
 
-<style>
-.navbar a {
-  text-decoration: none;
-  color: var(--point-color);
-}
-.navbar nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding-left: 60px;
-  min-height: 8vh;
-  background: var(--sub-color);
-}
-.logo {
-  font-size: 1.6em;
-  letter-spacing: 5px;
-}
-.logo:hover{
-  opacity: .7;
-}
-.nav-links {
-  display: flex;
-  width: 40%;
-  justify-content: space-around;
-  align-items: center;
-  list-style: none;
-  font-size: 1.2em;
-  letter-spacing: 1px;
-}
-.nav-links .nuxt-link-active {
-  font-weight: bold;
-  font-size: 1.1em;
-}
-.burger {
-  display: none;
-  cursor: pointer;
-}
-.burger div {
-  width: 30px;
-  height: 2px;
-  background: var(--point-color);
-  margin: 6px 0;
-  border-radius: 2px;
-  transition: .2s;
-}
-@keyframes fadein{
-    from{
-        opacity: 0;
+<style lang="scss" scoped>
+  .navbar {
+    a {
+      text-decoration: none;
+      color: var(--point-color);
     }
-    to{
-        opacity: 1;
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-left: 60px;
+      min-height: 8vh;
+      background: var(--sub-color);
     }
-}
-@media screen and (max-width: 1024px) {
-  .nav-links {
-    width: 60%;
   }
-}
-@media screen and (max-width: 767px) {
+  .logo {
+    font-size: 1.6em;
+    letter-spacing: 5px;
+    &:hover {
+     opacity: .7
+    }
+  }
   .nav-links {
-    position: absolute;
-    right: 0px;
-    height: 40vh;
-    width: 50%;
-    top: 8vh;
-    background: rgba(189, 227, 242, 1);
     display: flex;
-    flex-direction: column;
+    width: 40%;
+    justify-content: space-around;
     align-items: center;
-    transform: translateX(100%);
-    display: none;
+    list-style: none;
+    font-size: 1.2em;
+    letter-spacing: 1px;
+    .nuxt-link-active {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
   }
   .burger {
-    display: block;
+    display: none;
+    cursor: pointer;
+    div {
+      width: 30px;
+      height: 2px;
+      background: var(--point-color);
+      margin: 6px 0;
+      border-radius: 2px;
+     transition: .2s;
+    }
   }
-}
-.burger-active {
-  transform: translateX(0%);
-  display: inherit;
-  animation: fadein .2s linear 0s;
-}
-.toggle .line1 {
-  transform: rotate(-45deg) translate(-5px, 6px);
-}
-.toggle .line2 {
-  opacity: 0;
-}
-.toggle .line3 {
-  transform: rotate(45deg) translate(-5px, -6px);
-}
+  @keyframes fadein{
+    from{
+      opacity: 0;
+    }
+    to{
+      opacity: 1;
+    }
+  }
+  @media screen and (max-width: 1024px) {
+    .nav-links {
+      width: 60%;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .nav-links {
+      position: absolute;
+      right: 0px;
+      height: 40vh;
+      width: 50%;
+      top: 8vh;
+      background: rgba(189, 227, 242, 1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform: translateX(100%);
+      display: none;
+    }
+    .burger {
+      display: block;
+    }
+  }
+  .burger-active {
+    transform: translateX(0%);
+    display: inherit;
+    animation: fadein .2s linear 0s;
+  }
+  .toggle {
+    .line1 {
+      transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    .line2 {
+      opacity: 0;
+    }
+    .line3 {
+      transform: rotate(45deg) translate(-5px, -6px);
+    }
+  }
 </style>

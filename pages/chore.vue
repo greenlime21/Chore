@@ -111,49 +111,54 @@ export default {
       if (!user) {
         this.$router.push({ path: '/'})
       } else {
-        this.email = user.email  
+        this.email = user.email
       }
     });
   },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .add-todo {
   margin: 50px auto 20px auto;
   padding-bottom: 40px;
   text-align: center;
-}
-.add-todo input {
-  border-radius: 30px;
-  line-height: 20px;
-  padding: 10px 15px;
-  transition: .1s;
-}
-.add-todo input:hover,
-.add-todo input:focus {
-  box-shadow: 0 0 1px 1px lightgray;
-}
-.add-todo button {
-  border-radius: 30px;
-  width: 35px;
-  padding: 5px;
-  background: var(--sub-color);
-  cursor: pointer;
-  transition: .1s;
-}
-.add-todo .feedback {
-  margin-top: 40px;
-  height: 35px;
-  font-size: 1.4em;
-  opacity: .7;
-  color: red;
-}
-.add-todo button:hover {
-  background: rgb(152, 207, 228);
-}
-.add-todo button:active {
-  background: rgb(123, 190, 216);
+
+  input {
+    border-radius: 30px;
+    line-height: 20px;
+    padding: 10px 15px;
+    transition: .1s;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 1px 1px lightgray;
+    }
+  }
+
+  button {
+    border-radius: 30px;
+    width: 35px;
+    padding: 5px;
+    background: var(--sub-color);
+    cursor: pointer;
+    transition: .1s;
+
+    &:hover {
+      background: rgb(152, 207, 228);
+    }
+
+    &:active {
+      background: rgb(123, 190, 216);
+    }
+  }
+  .feedback {
+    margin-top: 40px;
+    height: 35px;
+    font-size: 1.4em;
+    opacity: .7;
+    color: red;
+  }
 }
 .todos-list {
   margin: 0 15%;
@@ -165,6 +170,21 @@ export default {
     'todo  todo  todo' 1fr
     / 1fr 1fr 1fr;
   gap: 20px;
+
+  @media screen and (max-width: 1024px) {
+      margin: 0 5%;
+  }
+  @media screen and (max-width: 767px) {
+      margin: 0 10%;
+      min-height: 80vh;
+      display: grid;
+      grid-template:
+        'todo' 1fr
+        'todo' 1fr
+        'todo' 1fr
+         / 1fr ;
+      gap: 20px;
+  }
 }
 .todo {
   grid-area: todo;
@@ -185,113 +205,108 @@ export default {
   border-radius: 10px;
   padding: 10px;
   transition: .2s;
-}
-.todo:hover {
-  background: rgb(250, 250, 250);
-  box-shadow: 0 0 5px silver;
-}
-.chore .image {
-  grid-area: image;
-  justify-self: center;
-  padding: 1vh 2vw;
-  color: var(--dark-color);
-  border-radius: 10px;
-  box-shadow: 0 0 4px 0px silver;
-}
-.chore .title {
-  grid-area: title;
-  align-self: start;
-  cursor: text;
-  font-size: 1.2em;
-  border-radius: 10px;
-  opacity: .9;
-  transition: .1s;
-}
-.chore .title:hover{
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .2);
-}
-.todo input {
-  height: 100%;
-  width: 100%;
-  padding: 2px 10px;
-  line-height: 20px;
-  border-radius: 10px;
-  text-align: center;
-  background: var(--base-color);
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, .2);
-}
-.chore .point {
-  grid-area: point;
-  justify-self: start;
-  font-size: 1em;
-  border-radius: 10px;
-  background: var(--base-color);
-  opacity: .7;
-}
-.chore .point i {
-  padding: 4px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: .1s;
-}
-.chore .done {
-  grid-area: done;
-  padding: 4px;
-  border-radius: 20px;
-  font-size: 1.4em;
-  cursor: pointer;
-  color: rgb(109, 223, 112);
-  transition: .1s;
-}
-.chore .done:hover {
-  background: rgba(109, 223, 112, 0.6);
-  font-size: 1.6em;
-  border: 2px solid rgb(109, 223, 112);
-}
-.chore .done:active {
-  color: white;
-  background: rgb(109, 223, 112);
-  font-size: 1.6em;
-  border: 2px solid rgb(109, 223, 112);
-}
-.chore .remove {
-  grid-area: remove;
-  justify-self: end;
-  align-self: center;
-  padding: 13px 10px;
-  background: var(--base-color);
-  border-radius: 10px;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: .1s;
-}
-.chore .point i:hover,
-.chore .remove:hover{
-  background: silver;
-}
-.chore .point i:active,
-.chore .remove:active{
-  background: rgb(133, 133, 133);
-}
-.chore .edit {
-  display: none;
-}
-@media screen and (max-width: 1024px) {
-  .todos-list {
-    margin: 0 5%;
+
+  input {
+    height: 100%;
+    width: 100%;
+    padding: 2px 10px;
+    line-height: 20px;
+    border-radius: 10px;
+    text-align: center;
+    background: var(--base-color);
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, .2);
+  }
+
+  &:hover {
+    background: rgb(250, 250, 250);
+    box-shadow: 0 0 5px silver;
   }
 }
-@media screen and (max-width: 767px) {
-  .todos-list {
-    margin: 0 10%;
-    min-height: 80vh;
-    display: grid;
-    grid-template:
-    'todo' 1fr
-    'todo' 1fr
-    'todo' 1fr
-    / 1fr ;
-  gap: 20px;
+.chore {
+  .image {
+    grid-area: image;
+    justify-self: center;
+    padding: 1vh 2vw;
+    color: var(--dark-color);
+    border-radius: 10px;
+    box-shadow: 0 0 4px 0px silver;
+  }
+  .title {
+    grid-area: title;
+    align-self: start;
+    cursor: text;
+    font-size: 1.2em;
+    border-radius: 10px;
+    opacity: .9;
+    transition: .1s;
+
+    &:hover{
+      box-shadow: 0 0 1px 1px rgba(0, 0, 0, .2);
+    }
+  }
+  .point {
+    grid-area: point;
+    justify-self: start;
+    font-size: 1em;
+    border-radius: 10px;
+    background: var(--base-color);
+    opacity: .7;
+
+    i {
+      padding: 4px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: .1s;
+
+      &:hover{
+        background: silver;
+      }
+      &:active{
+        background: rgb(133, 133, 133);
+      }
+    }
+  }
+  .done {
+    grid-area: done;
+    padding: 4px;
+    border-radius: 20px;
+    font-size: 1.4em;
+    cursor: pointer;
+    color: rgb(109, 223, 112);
+    transition: .1s;
+
+    &:hover {
+      background: rgba(109, 223, 112, 0.6);
+      font-size: 1.6em;
+      border: 2px solid rgb(109, 223, 112);
+    }
+    &:active {
+      color: white;
+      background: rgb(109, 223, 112);
+      font-size: 1.6em;
+      border: 2px solid rgb(109, 223, 112);
+    }
+  }
+  .remove {
+    grid-area: remove;
+    justify-self: end;
+    align-self: center;
+    padding: 13px 10px;
+    background: var(--base-color);
+    border-radius: 10px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: .1s;
+
+    &:hover{
+    background: silver;
+    }
+    &:active{
+      background: rgb(133, 133, 133);
+    }
+  }
+  .edit {
+    display: none;
   }
 }
 </style>

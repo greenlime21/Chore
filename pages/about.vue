@@ -39,7 +39,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .about {
   width: 55vw;
   margin: 100px auto;
@@ -48,18 +48,15 @@ export default {
   background: white;
   font-size: 1.2em;
   letter-spacing: 2px;
-}
-.about h1,
-.about p {
-  margin: 15px;
-} 
-@media screen and (max-width: 1024px) {
-  .about {
+
+  h1,
+  p {
+    margin: 15px;
+  }
+  @media screen and (max-width: 1024px) {
     width: 65vw;
   }
-}
-@media screen and (max-width: 767px) {
-  .about {
+  @media screen and (max-width: 767px) {
     width: 95vw;
     padding: 3px;
     margin: 20px auto;

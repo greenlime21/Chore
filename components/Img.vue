@@ -8,7 +8,7 @@
 export default {}
 </script>
 
-<style>
+<style lang="scss" scoped>
 .img img {
   width: 100vw;
   height: 100%;

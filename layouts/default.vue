@@ -12,7 +12,7 @@
   --sub-color: rgba(189, 227, 242, 1);
   --base-color: rgba(242, 242, 242, 1);
   --dark-color: rgba(217, 175, 139, 1);
-  --point-color: rgba(242, 106, 75, 1);
+  --point-color: rgb(242, 106, 75);
 }
 
 html {
@@ -50,7 +50,7 @@ button, input, select, textarea {
   background: #fff;
   border: none;
   border-radius: 10px;
-  box-shadow: inset 0 0 2px #777; 
+  box-shadow: inset 0 0 2px #777;
 }
 ::-webkit-scrollbar-thumb{
   background: #ccc;

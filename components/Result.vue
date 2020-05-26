@@ -17,13 +17,13 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .result .points {
   margin: 0 auto;
   text-align: center;
   width: 220px;
   font-size: 1.5em;
   border-bottom: solid 1px silver;
-  list-style: none; 
+  list-style: none;
 }
 </style>

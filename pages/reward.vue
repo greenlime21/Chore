@@ -105,135 +105,145 @@ export default {
       if (!user) {
         this.$router.push({ path: '/'})
       } else {
-        this.email = user.email  
+        this.email = user.email
       }
     });
   },
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 .add-reward {
   margin: 50px auto 20px auto;
   padding-bottom: 40px;
   text-align: center;
-}
-.add-reward input {
-  border-radius: 30px;
-  line-height: 20px;
-  padding: 10px 15px;
-  transition: .1s;
-}
-.add-reward input:hover,
-.add-reward input:focus {
-  box-shadow: 0 0 1px 1px lightgray;
-}
-.add-reward button {
-  border-radius: 30px;
-  width: 35px;
-  padding: 5px;
-  background: var(--sub-color);
-  cursor: pointer;
-  transition: .1s;
-}
-.add-reward button:hover {
-  background: rgb(152, 207, 228);
-}
-.add-reward button:active {
-  background: rgb(123, 190, 216);
+
+  input {
+    border-radius: 30px;
+    line-height: 20px;
+    padding: 10px 15px;
+    transition: .1s;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 1px 1px lightgray;
+    }
+  }
+  button {
+    border-radius: 30px;
+    width: 35px;
+    padding: 5px;
+    background: var(--sub-color);
+    cursor: pointer;
+    transition: .1s;
+
+    &:hover {
+      background: rgb(152, 207, 228);
+    }
+    &:active {
+      background: rgb(123, 190, 216);
+    }
+  }
 }
 .reward-list {
   margin: 0px auto;
   text-align: center;
-}
-.reward-list p{
-  margin-bottom: 50px;
-}
-.reward-list .reward-contents {
-  height: 60px;
-  padding: 10px;
-  margin: 10px auto;
-  background: white;
-  width: 40vw;
-  border-radius: 30px;
-  display: grid;
-  grid-template:
-    'star title point btn trash' 1fr
-    /1fr  6fr   1fr   1fr 1fr;
-  justify-items: start;
-  align-items: center;
-}
-.reward-list .fa-star {
-  grid-area: star;
-  background: rgb(254, 254, 93);
-  padding: 10px 6px;
-  border-radius: 20px;
-  border: solid 2px var(--base-color);
-  cursor: pointer;
-  transition: .3s;
-}
-.reward-list .fa-star:hover {
-  transform: scale(1.2);
-}
-.reward-list .reward-title {
-  grid-area: title;
-  font-size: 1.2em;
-  cursor: pointer;
-}
-.reward-list .reward-title input {
-  background: var(--base-color);
-  width: 20vw;
-  border-radius: 5px;
-  padding: 2px;
-}
-.reward-list .edit {
-  display: none;
-}
-.reward-list .reward-point {
-  grid-area: point;
-  justify-self: end;
-  font-size: 1.2em;
-  padding-right: 7px;
-}
-.reward-list .reward-point-btn {
-  grid-area: btn;
-  padding: 0 4px;
-  background: var(--base-color);
-  border-radius: 20px;
-  cursor: pointer;
-}
-.reward-list .fas {
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  padding: 0 3px;
-  transition: .1s;
-}
-.reward-list .remove{
-  grid-area: trash;
-  justify-self: end;
-  background: var(--base-color);
-  padding: 10px 9px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: .1s;
-}
-.reward-list .remove:hover,
-.reward-list .fas:hover {
-  background: silver;
-}
-.reward-list .remove:active,
-.reward-list .fas:active {
-  background: rgb(133, 133, 133);
-}
-@media screen and (max-width: 1200px) {
-  .reward-list .reward-contents {
-    width: 70vw;
+
+  p{
+    margin-bottom: 50px;
   }
-}
-@media screen and (max-width: 767px) {
-  .reward-list .reward-contents {
-    width: 98vw;
+  .reward-contents {
+    height: 60px;
+    padding: 10px;
+    margin: 10px auto;
+    background: white;
+    width: 40vw;
+    border-radius: 30px;
+    display: grid;
+    grid-template:
+      'star title point btn trash' 1fr
+      /1fr  6fr   1fr   1fr 1fr;
+    justify-items: start;
+    align-items: center;
+
+    @media screen and (max-width: 1200px) {
+      width: 70vw;
+    }
+    @media screen and (max-width: 767px) {
+      width: 98vw;
+    }
+
+    .fa-star {
+      grid-area: star;
+      background: rgb(254, 254, 93);
+      padding: 10px 6px;
+      border-radius: 20px;
+      border: solid 2px var(--base-color);
+      cursor: pointer;
+      transition: .3s;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+  .reward-title {
+    grid-area: title;
+    font-size: 1.2em;
+    cursor: pointer;
+    input {
+      background: var(--base-color);
+      width: 20vw;
+      border-radius: 5px;
+      padding: 2px;
+
+      @media screen and (max-width: 1200px) {
+        width: 40vw;
+      }
+      @media screen and (max-width: 767px) {
+        width: 50vw;
+      }
+    }
+  }
+  .edit {
+    display: none;
+  }
+  .reward-point {
+    grid-area: point;
+    justify-self: end;
+    font-size: 1.2em;
+    padding-right: 7px;
+  }
+  .reward-point-btn {
+    grid-area: btn;
+    padding: 0 4px;
+    background: var(--base-color);
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  .fas {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 0 3px;
+    transition: .1s;
+  }
+  .remove{
+    grid-area: trash;
+    justify-self: end;
+    background: var(--base-color);
+    padding: 10px 9px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .1s;
+  }
+  .remove:hover,
+  .fas:hover {
+    background: silver;
+  }
+  .remove:active,
+  .fas:active {
+    background: rgb(133, 133, 133);
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Navbar />
+    <Navbar/>
     <div class="about">
       <h1>What Chore ?</h1>
       <p>
@@ -20,47 +20,46 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebase'
-import Navbar from '~/components/Navbar'
+  import firebase from '~/plugins/firebase'
+  import Navbar from '~/components/Navbar'
 
-export default {
-  components:{
-    Navbar
-  },
-  created() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (!user) {
-        this.$router.push({ path: '/'})
-      } else {
-
-      }
-    });
+  export default {
+    components: {
+      Navbar
+    },
+    created() {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (!user) {
+          this.$router.push({ path: '/' })
+        }
+      })
+    }
   }
-}
 </script>
 
 <style lang="scss" scoped>
-.about {
-  width: 55vw;
-  margin: 100px auto;
-  padding: 30px;
-  border-radius: 10px;
-  background: white;
-  font-size: 1.2em;
-  letter-spacing: 2px;
+  .about {
+    width: 55vw;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 10px;
+    background: white;
+    font-size: 1.2em;
+    letter-spacing: 2px;
 
-  h1,
-  p {
-    margin: 15px;
+    h1,
+    p {
+      margin: 15px;
+    }
+
+    @media screen and (max-width: 1024px) {
+      width: 65vw;
+    }
+    @media screen and (max-width: 767px) {
+      width: 95vw;
+      padding: 3px;
+      margin: 20px auto;
+      letter-spacing: normal;
+    }
   }
-  @media screen and (max-width: 1024px) {
-    width: 65vw;
-  }
-  @media screen and (max-width: 767px) {
-    width: 95vw;
-    padding: 3px;
-    margin: 20px auto;
-    letter-spacing: normal;
-  }
-}
 </style>

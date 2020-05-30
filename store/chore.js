@@ -13,7 +13,7 @@ export const state = () => ({
   users: [],
   rewards: [],
   chore_result: [],
-  reward_result: [],
+  reward_result: []
 })
 
 export const actions = {
@@ -21,67 +21,67 @@ export const actions = {
     bindFirestoreRef('users', usersRef)
     bindFirestoreRef('todos', todosRef)
     bindFirestoreRef('rewards', rewardsRef)
-    bindFirestoreRef('chore_result', choreResultRef.orderBy("done", "desc"))
-    bindFirestoreRef('reward_result', rewardResultRef.orderBy("done", "desc"))
+    bindFirestoreRef('chore_result', choreResultRef.orderBy('done', 'desc'))
+    bindFirestoreRef('reward_result', rewardResultRef.orderBy('done', 'desc'))
   }),
-  // Todosに関して
-  add: firestoreAction((context, title) => {
+  // Choreに関して
+  addChore: firestoreAction((context, title) => {
     if (title.trim()) {
       todosRef.add({
         title: title,
         mode: true,
         point: 5,
-        imgSrc: `/chore/img${Math.floor( Math.random () * 12) + 1}.png`,
+        imgSrc: `/chore/img${Math.floor(Math.random() * 12) + 1}.png`
       })
     }
   }),
-  remove: firestoreAction((context, id) => {
+  removeChore: firestoreAction((context, id) => {
     todosRef.doc(id).delete()
   }),
-  editTitle: firestoreAction((context, todo) => {
+  editChoreTitle: firestoreAction((context, todo) => {
     todosRef.doc(todo.id).update({
       title: todo.title
     }).then(() => {
       context.commit('isTodosModeChange', todo)
     })
   }),
-  incrementPoint: firestoreAction((context, todo) => {
+  incrementChorePoint: firestoreAction((context, todo) => {
     if (todo.point < 99) {
       todosRef.doc(todo.id).update({
-      point: (todo.point + 1)
+        point: (todo.point + 1)
       })
     }
   }),
-  decrementPoint: firestoreAction((context, todo) => {
+  decrementChorePoint: firestoreAction((context, todo) => {
     if (todo.point >= 1) {
       todosRef.doc(todo.id).update({
-      point: (todo.point - 1)
+        point: (todo.point - 1)
       })
     }
   }),
   changeImgSrc: firestoreAction((context, todo) => {
     const image_src_num = Number(todo.imgSrc.replace(/[^0-9]/g, ''))
 
-    if(image_src_num === 12) {
+    if (image_src_num === 12) {
       todosRef.doc(todo.id).update({
-      imgSrc: `/chore/img1.png`
+        imgSrc: `/chore/img1.png`
       })
-    }else{
+    } else {
       todosRef.doc(todo.id).update({
         imgSrc: `/chore/img${image_src_num + 1}.png`
       })
     }
   }),
   // usersに関して
-  addPoints: firestoreAction((context, point) => {
+  addUsersPoints: firestoreAction((context, point) => {
     const nowPoints = context.state.users[0].points
     usersRef.doc('chorepoints').update({
       points: nowPoints + point
     })
   }),
-  subPoints: firestoreAction((context, point) => {
+  subUsersPoints: firestoreAction((context, point) => {
     const nowPoints = context.state.users[0].points
-    if(point < nowPoints){
+    if (point < nowPoints) {
       usersRef.doc('chorepoints').update({
         points: nowPoints - point
       })
@@ -110,7 +110,7 @@ export const actions = {
   incrementRewardPoint: firestoreAction((context, reward) => {
     if (reward.point < 99) {
       rewardsRef.doc(reward.id).update({
-      point: (reward.point + 1)
+        point: (reward.point + 1)
       })
     }
   }),
@@ -135,20 +135,20 @@ export const actions = {
       content: reward.title,
       point: reward.point
     })
-  }),
+  })
 }
 
 export const mutations = {
   isTodosModeChange(context, todo) {
     context.todos.forEach(context_todo => {
-      if(context_todo.id === todo.id){
+      if (context_todo.id === todo.id) {
         context_todo.mode = !context_todo.mode
       }
     })
   },
   isRewardsModeChange(context, reward) {
     context.rewards.forEach(context_reward => {
-      if(context_reward.id === reward.id){
+      if (context_reward.id === reward.id) {
         context_reward.mode = !context_reward.mode
       }
     })

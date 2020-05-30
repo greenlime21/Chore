@@ -30,24 +30,24 @@
 </template>
 
 <script>
-import firebase from '~/plugins/firebase'
+  import firebase from '~/plugins/firebase'
 
-export default {
-  data() {
-    return {
-      status: false
-    }
-  },
-  methods: {
-    navSlide() {
-      this.status = !this.status
-      console.log(this.status)
+  export default {
+    data() {
+      return {
+        status: false
+      }
     },
-    signOut() {
-      firebase.auth().signOut()
+    methods: {
+      navSlide() {
+        this.status = !this.status
+        console.log(this.status)
+      },
+      signOut() {
+        firebase.auth().signOut()
+      }
     }
   }
-}
 </script>
 
 <style lang="scss" scoped>
@@ -56,6 +56,7 @@ export default {
       text-decoration: none;
       color: var(--point-color);
     }
+
     nav {
       display: flex;
       justify-content: space-around;
@@ -65,13 +66,16 @@ export default {
       background: var(--sub-color);
     }
   }
+
   .logo {
     font-size: 1.6em;
     letter-spacing: 5px;
+
     &:hover {
-     opacity: .7
+      opacity: .7
     }
   }
+
   .nav-links {
     display: flex;
     width: 40%;
@@ -80,36 +84,42 @@ export default {
     list-style: none;
     font-size: 1.2em;
     letter-spacing: 1px;
+
     .nuxt-link-active {
       font-weight: bold;
       font-size: 1.1em;
     }
   }
+
   .burger {
     display: none;
     cursor: pointer;
+
     div {
       width: 30px;
       height: 2px;
       background: var(--point-color);
       margin: 6px 0;
       border-radius: 2px;
-     transition: .2s;
+      transition: .2s;
     }
   }
-  @keyframes fadein{
-    from{
+
+  @keyframes fadein {
+    from {
       opacity: 0;
     }
-    to{
+    to {
       opacity: 1;
     }
   }
+
   @media screen and (max-width: 1024px) {
     .nav-links {
       width: 60%;
     }
   }
+
   @media screen and (max-width: 767px) {
     .nav-links {
       position: absolute;
@@ -128,18 +138,22 @@ export default {
       display: block;
     }
   }
+
   .burger-active {
     transform: translateX(0%);
     display: inherit;
     animation: fadein .2s linear 0s;
   }
+
   .toggle {
     .line1 {
       transform: rotate(-45deg) translate(-5px, 6px);
     }
+
     .line2 {
       opacity: 0;
     }
+
     .line3 {
       transform: rotate(45deg) translate(-5px, -6px);
     }

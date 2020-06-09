@@ -60,15 +60,15 @@ export const actions = {
     }
   }),
   changeImgSrc: firestoreAction((context, todo) => {
-    const image_src_num = Number(todo.imgSrc.replace(/[^0-9]/g, ''))
+    const imageSrcNumber = Number(todo.imgSrc.replace(/[^0-9]/g, ''))
 
-    if (image_src_num === 12) {
+    if (imageSrcNumber === 12) {
       todosRef.doc(todo.id).update({
-        imgSrc: `/chore/img1.png`
+        imgSrc: '/chore/img1.png'
       })
     } else {
       todosRef.doc(todo.id).update({
-        imgSrc: `/chore/img${image_src_num + 1}.png`
+        imgSrc: `/chore/img${imageSrcNumber + 1}.png`
       })
     }
   }),
@@ -139,17 +139,17 @@ export const actions = {
 }
 
 export const mutations = {
-  isTodosModeChange(context, todo) {
-    context.todos.forEach(context_todo => {
-      if (context_todo.id === todo.id) {
-        context_todo.mode = !context_todo.mode
+  isTodosModeChange (context, todo) {
+    context.todos.forEach(contextTodo => {
+      if (contextTodo.id === todo.id) {
+        contextTodo.mode = !contextTodo.mode
       }
     })
   },
-  isRewardsModeChange(context, reward) {
-    context.rewards.forEach(context_reward => {
-      if (context_reward.id === reward.id) {
-        context_reward.mode = !context_reward.mode
+  isRewardsModeChange (context, reward) {
+    context.rewards.forEach(contextReward => {
+      if (contextReward.id === reward.id) {
+        contextReward.mode = !contextReward.mode
       }
     })
   }
